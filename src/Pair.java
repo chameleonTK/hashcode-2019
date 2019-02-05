@@ -1,5 +1,5 @@
 
-public class Pair {
+public class Pair implements Comparable {
 	int width, height;
 	int x, y;
 
@@ -15,4 +15,12 @@ public class Pair {
 	public String toString() {
 		return String.format("%d %d", width, height);
 	}
+	
+	@Override
+    public int compareTo(Object cmp) {
+        if (this.x == ((Pair)cmp).x) {
+        	return this.y-((Pair)cmp).y;
+        }
+        return this.x-((Pair)cmp).x;
+    }
 }

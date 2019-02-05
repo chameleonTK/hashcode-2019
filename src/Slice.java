@@ -4,14 +4,20 @@ public class Slice {
 	public int fromX, toX, fromY, toY, score, dx, dy;
 
 	public Slice(int x1, int y1, int dx, int dy) {
-		fromX = x1;
-		fromY = y1;
+		this.fromX = x1;
+		this.fromY = y1;
 
-		toX = x1 + (dx) - 1;
-		toY = y1 + (dy) - 1;
+		this.toX = x1 + (dx) - 1;
+		this.toY = y1 + (dy) - 1;
 
-		score = dx * dy;
+		this.dx = dx;
+		this.dy = dy;
+		this.score = dx * dy;
 	}
 	
 
+	@Override
+	public String toString() {
+		return String.format("%d %d %d %d", fromX, fromY, toX, toY);
+	}
 }

@@ -24,7 +24,7 @@ public class PizzaProblem {
 	}
 
 	public static void main(String[] args) {
-		args = new String[] { "res/d_big" };
+		args = new String[] { "res/b_small" };
 		if (args.length <= 0) {
 			System.out.println("Wrong arguments");
 			return;
@@ -34,7 +34,7 @@ public class PizzaProblem {
 		PizzaProblem.save(args[0] + ".out", pb.solve());
 	}
 
-	private static void save(String filename, List<Slice> slices) {
+	protected static void save(String filename, List<Slice> slices) {
 		BufferedWriter bw = null;
 		int score = 0;
 		try {
@@ -58,7 +58,7 @@ public class PizzaProblem {
 		}
 	}
 
-	private static PizzaProblem load(String filename) {
+	protected static PizzaProblem load(String filename) {
 		BufferedReader br = null;
 
 		int rows = 0, columns = 0, min_topping = 0, max_size = 0;
@@ -103,5 +103,4 @@ public class PizzaProblem {
 
 		return (new PizzaProblem(rows, columns, min_topping, max_size, pizza));
 	}
-
 }
