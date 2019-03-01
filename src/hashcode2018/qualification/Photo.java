@@ -8,7 +8,7 @@ public class Photo {
 	String type;
 	int M, id;
 	int lettercount=0;
-	
+	String mm = "";
 	List<String> tags;
 	
 	public Photo(int id, String type, int M, List<String> tags) {
@@ -16,16 +16,16 @@ public class Photo {
 		this.type = type;
 		this.M = M;
 		this.tags = tags;
+		
+		for (String s : tags)
+		{
+		    mm += s + " ";
+		}
 		calculateLetterCount();
 		
 	}
 	public void calculateLetterCount() {
-		for (Iterator<String> i = tags.iterator(); i.hasNext();) {
-		    String item = i.next();
-		    System.out.println(item);
-		}
 		
-		this.lettercount
 		
 	}
 	public String getType() {

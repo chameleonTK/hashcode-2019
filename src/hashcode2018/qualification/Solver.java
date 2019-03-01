@@ -13,23 +13,45 @@ public class Solver {
 		this.hashtable = new Hashtable<Integer, List<Photo>>();
 	}
 	
-	public int calculateScore(ArrayList<Slide> inputSlide) {
+	public int calculateScore(Slide a, Slide b) {
 		ArrayList<Slide> slide = new ArrayList<Slide>();
 		int common = 0, onlyfirst = 0, onlysecond = 0, minscore = 0, finalscore = 0;
 		Slide slide1, slide2;
 		ArrayList<String> commontags;
+		
+		slide1 = a;
+		slide2 = b;
+		commontags = new ArrayList<String>(slide1.tags);
+		commontags.retainAll(slide2.tags);
+		common = commontags.size();
+		onlyfirst = slide2.tags.size()- common;
+		onlysecond = slide1.tags.size() - common;
+		minscore = Math.min(common, Math.min(onlyfirst, onlysecond));
+		finalscore += minscore;
+		
+		return finalscore;
+	}
+	
+	public int calculateScore(List<Slide> slides) {
+		List<Slide> slide = slides;
+		int common = 0, onlyfirst = 0, onlysecond = 0, minscore = 0, finalscore = 0;
+		Slide slide1, slide2;
+		ArrayList<String> commontags;
 
-		while (slide.size() > 1) {
-			slide1 = slide.get(0);
-			slide2 = slide.get(1);
+		int i = 1;
+		while (i < slides.size()) {
+			slide1 = slide.get(i-1);
+			slide2 = slide.get(i);
+			
 			commontags = new ArrayList<String>(slide1.tags);
 			commontags.retainAll(slide2.tags);
 			common = commontags.size();
-			onlyfirst = common - slide2.tags.size();
-			onlysecond = common - slide1.tags.size();
+			onlyfirst = slide2.tags.size() - common;
+			onlysecond = slide1.tags.size() - common;
 			minscore = Math.min(common, Math.min(onlyfirst, onlysecond));
 			finalscore += minscore;
-			slide.remove(0);
+//			slide.remove(0);
+			i ++;
 		}
 		return finalscore;
 	}
@@ -41,34 +63,95 @@ public class Solver {
 		List<Photo> horizontalPhotos = allPhotos.get(0);
 		List<Photo> verticalPhotos = allPhotos.get(1);
 		
-//		Collections.sort(pb.photos, new Comparator<Photo>(){
-//		    public int compare(Photo s2, Photo s1) {
-//		        return s1.tags.size() - s2.tags.size();
-//		    }
-//		});
+		int V = 0, H=0;
+		if (verticalPhotos.size() > 0) {
+			V = verticalPhotos.get(0).M;
+		}
+		
+		if (horizontalPhotos.size() > 0) {
+			H = horizontalPhotos.get(0).M;
+		}
+		
+		Collections.sort(verticalPhotos, new Comparator<Photo>(){
+		    public int compare(Photo s2, Photo s1) {
+		        return s1.tags.size() - s2.tags.size();
+		    }
+		});
+		
 		Collections.sort(horizontalPhotos, new Comparator<Photo>(){
 		    public int compare(Photo s2, Photo s1) {
 		        return s1.tags.size() - s2.tags.size();
 		    }
 		});
-		//slides.add(Slide.toSlide(photos);)
+		
+		if (verticalPhotos.size() > 0) {
+			int limitIndex  = 0;
+			Photo last = verticalPhotos.get(verticalPhotos.size() - 1);
+			for(int i = 0; i < verticalPhotos.size(); i++) {
+				Photo a = verticalPhotos.get(i);
+				
+				if (a.tags.size() + last.tags.size() < H) {
+					limitIndex = i;
+					break;
+				}
+			}
+			
+			for(int i = 0; i < limitIndex/2; i++) {
+				Photo a = verticalPhotos.get(i);
+				Photo b = verticalPhotos.get(limitIndex - 1 - i);
+				
+				slides.add(new Slide(a, b));
+			}
+			
+			for(int i = limitIndex; i < verticalPhotos.size()/2; i++) {
+				Photo a = verticalPhotos.get(i);
+				Photo b = verticalPhotos.get(verticalPhotos.size() - 1 - i);
+				
+				slides.add(new Slide(a, b));
+			}
+		}
+		
 		for(int i = 0; i < horizontalPhotos.size(); i++) {
 			Photo currentPhoto = horizontalPhotos.get(i);
 			slides.add(Slide.horizontalToSlide(currentPhoto));
-//			if (i == 0 || i == horizontalPhotos.size()-1) {
-//				slides.add(Slide.horizontalToSlide(currentPhoto));
-//			}
-//			else {
-//				//System.out.println(currentPhoto.id+" "+currentPhoto.tags.size());
-//				currentPhoto.getTags().size();
-//				for (int j = i; j < horizontalPhotos.size(); j++) {
-//					
-//				}
-//			}
+		}
+		
+		Collections.sort(slides, new Comparator<Photo>(){
+		    public int compare(Photo s2, Photo s1) {
+//		    	return s1.tags.size() - s2.tags.size();
+		    	if (s1.getTags().size() == s2.getTags().size()) {
+		    		return s1.mm.compareTo(s2.mm);
+		    	} else {
+			        return s1.tags.size() - s2.tags.size();
+		    	}
+		    }
+		});
+		
+		int W = 200;
+		for(int i=0; i<slides.size()-1; i++) {
+			Slide a = slides.get(i);
 			
+			int m = i+1;
+			int maxScore = -1;
+			for(int j=1; j < W && i+j< slides.size(); j++) {
+				Slide b = slides.get(i+j);
+				int score = calculateScore(a, b);
+//				System.out.println(score);
+				if (score > maxScore) {
+					maxScore = score;
+					m = i+j;
+				}
+			}
+			
+//			System.out.println((i+1)+" "+m+" "+maxScore);
+//			System.out.println(slides.get(i+1).id+" "+slides.get(m).id);
+			Collections.swap(slides, i+1, m);
+//			System.out.println(slides.get(i+1).id+" "+slides.get(m).id);
+//			break;
 		}
 //		pb.photos.get(0).tags.get(0)
 
+		System.out.println("SCORE:"+calculateScore(slides));
 		return slides;
 	}
 	

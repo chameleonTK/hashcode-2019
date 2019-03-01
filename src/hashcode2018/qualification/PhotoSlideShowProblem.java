@@ -20,7 +20,7 @@ public class PhotoSlideShowProblem {
 		args = new String[] {"a_example", "b_lovely_landscapes", "c_memorable_moments", "d_pet_pictures", "e_shiny_selfies"};
 
 		for (String s: args) {
-			PhotoSlideShowProblem pb = PhotoSlideShowProblem.load(s + ".txt");
+			PhotoSlideShowProblem pb = PhotoSlideShowProblem.load("res/qualification/"+s + ".txt");
 			PhotoSlideShowProblem.save(s + ".out", pb.solve());
 		}
 		
@@ -29,8 +29,8 @@ public class PhotoSlideShowProblem {
 	public PhotoSlideShowProblem (int n, List<Photo> photos) {
 		this.N = n;
 		this.photos = photos;
-		System.out.println(n);
-		this.solver = new SolverByPraneath();
+		System.out.println("N="+n);
+		this.solver = new Solver();
 	}
 	
 	public List<Slide> solve() {

@@ -7,6 +7,8 @@ import java.util.Set;
 
 public class Slide extends Photo{
 	Photo a, b;
+	
+	
 
 	public Slide(Photo a, Photo b) {
 		super(a.id, a.type, a.M, a.tags);
