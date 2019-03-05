@@ -81,8 +81,8 @@ I found very clear explanation from [http://flothesof.github.io/preparing-hashco
 
 # Our Team
 * Pakawat Nakwijt [@chameleonTK](https://github.com/chameleonTK)
-* Kenny Ng 
-* Praneeth Kumar Venkatapuram  
+* Kenny Ng [@KennyNgZW](https://github.com/KennyNgZW)
+* Praneeth Kumar Venkatapuram [@Praneethiq](https://github.com/Praneethiq) 
 * Ajwad Rathore 
 
 from University of St. Andrews
