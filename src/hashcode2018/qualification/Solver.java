@@ -84,31 +84,11 @@ public class Solver {
 		    }
 		});
 		
-		if (verticalPhotos.size() > 0) {
-			int limitIndex  = 0;
-			Photo last = verticalPhotos.get(verticalPhotos.size() - 1);
-			for(int i = 0; i < verticalPhotos.size(); i++) {
-				Photo a = verticalPhotos.get(i);
-				
-				if (a.tags.size() + last.tags.size() < H) {
-					limitIndex = i;
-					break;
-				}
-			}
+		for(int i = 0; i < verticalPhotos.size()/2; i++) {
+			Photo a = verticalPhotos.get(i);
+			Photo b = verticalPhotos.get(verticalPhotos.size() - 1 - i);
 			
-			for(int i = 0; i < limitIndex/2; i++) {
-				Photo a = verticalPhotos.get(i);
-				Photo b = verticalPhotos.get(limitIndex - 1 - i);
-				
-				slides.add(new Slide(a, b));
-			}
-			
-			for(int i = limitIndex; i < verticalPhotos.size()/2; i++) {
-				Photo a = verticalPhotos.get(i);
-				Photo b = verticalPhotos.get(verticalPhotos.size() - 1 - i);
-				
-				slides.add(new Slide(a, b));
-			}
+			slides.add(new Slide(a, b));
 		}
 		
 		for(int i = 0; i < horizontalPhotos.size(); i++) {
