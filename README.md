@@ -1,6 +1,8 @@
 
 # Google Hash Code Problem 2019 
 
+This solution will get around 717698 points (712155 in the compentition; #851 Worldwide / #39 in UK)
+
 ## Qualification Problem
 
 The problem statement is 
@@ -20,8 +22,6 @@ They score a slideshow by considering each transition between slides. The score 
 *** the detail version please go to [official website](https://hashcodejudge.withgoogle.com/#/home)
 
 ### (tiny) Analysing Problem 
-
-This solution will get around 717698 points (712155 in the compentition; #851 Worldwide / #39 in UK)
 
 The idea behide this is a simple greedy algorithm.
 
@@ -80,10 +80,10 @@ I believe that it could be improved a little bit more by apply thw same sliding 
 I found very clear explanation from [http://flothesof.github.io/preparing-hashcode-2018.html](http://flothesof.github.io/preparing-hashcode-2018.html) so this is just a Java implementation from with tiny changes within the same idea.
 
 # Our Team
-Pakawat Nakwijt [@chameleonTK](https://github.com/chameleonTK)
-Kenny Ng 
-Praneeth Kumar Venkatapuram  
-Ajwad Rathore 
+* Pakawat Nakwijt [@chameleonTK](https://github.com/chameleonTK)
+* Kenny Ng 
+* Praneeth Kumar Venkatapuram  
+* Ajwad Rathore 
 
 from University of St. Andrews
 
